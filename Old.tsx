@@ -1,52 +1,38 @@
-import { StyleSheet, Button, TextInput, View, Linking, Platform } from 'react-native';
+import { StyleSheet, Button, TextInput, View } from 'react-native';
 import { InferenceSession, Tensor } from "onnxruntime-react-native";
-import { PermissionsAndroid } from 'react-native';
-import { StorageAccessFramework } from 'expo-file-system';
 
-import { Moondream } from "moondream-rn";
+import { getSession } from "moondream-rn";
 
 
 import { useEffect, useState } from 'react';
 import { useAssets } from 'expo-asset';
 
 export default function ModelScreen() {
-    const [moondream, setMoondream] = useState<Moondream | null>(null);
+    const [assets, _] = useAssets([
+        require('@/assets/models/text_decoder_float.onnx'),
+    ]);
+
+    const [session, setSession] = useState<InferenceSession | null>(null);
     const [xValue, setXValue] = useState<string>(''); // State for x input
     const [yValue, setYValue] = useState<string>(''); // State for y input
 
     useEffect(() => {
+        if (!assets) {
+            return;
+        }
+
         async function loadModel() {
-            const granted = await PermissionsAndroid.request(
-                PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-                {
-                    title: 'Cool Photo App Camera Permission',
-                    message:
-                    'Cool Photo App needs access to your camera ' +
-                    'so you can take awesome pictures.',
-                    buttonNeutral: 'Ask Me Later',
-                    buttonNegative: 'Cancel',
-                    buttonPositive: 'OK',
-                },
-            );
-
-            console.log("Permission granted:", granted);
-            console.log(await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE));
-
-            // const permissions = await StorageAccessFramework.requestDirectoryPermissionsAsync();
-            // console.log("Permissions granted:", permissions);
-
             try {
-                const moondream: Moondream = await Moondream.load("/sdcard/moondream/models")
-                setMoondream(moondream);
+                const session: InferenceSession = await getSession(assets![0].localUri!);
+                setSession(session);
+                console.log(assets![0].localUri)
                 console.log("Model loaded successfully");
             } catch (error) {
                 console.error("Error loading model", error);
             }
         }
         loadModel();
-    }, []);
-
-    console.log(Platform.Version, moondream);
+    }, [assets]);
 
     const execute = async () => {
         // const tensorA = new Tensor('float32', Float32Array.from([parseFloat(xValue)]), [1]);
@@ -67,15 +53,15 @@ export default function ModelScreen() {
 
         console.log("After creating tensors");
 
-        if (!moondream) {
+        if (!session) {
             console.error("Session is not initialized");
             return;
         }
 
         try {
             console.log("Running model");
-            // const output = await session!.run(feed);
-            // console.log("Output", output["new_kv_cache"].dims);
+            const output = await session!.run(feed);
+            console.log("Output", output["new_kv_cache"].dims);
         } catch (error) {
             console.error("Error running model", error);
         }
