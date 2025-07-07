@@ -12,6 +12,7 @@
     "expo": "~53.0.17",
     "expo-asset": "~11.1.7",
     "expo-file-system": "~18.1.11",
+    "expo-image-picker": "~16.1.4",
     "expo-status-bar": "~2.2.3",
     "moondream-rn": "file:../moondream-rn",
     "onnxruntime-react-native": "^1.22.0",
