@@ -3,7 +3,7 @@ import { InferenceSession, Tensor } from "onnxruntime-react-native";
 import * as FileSystem from "expo-file-system";
 import * as ImagePicker from "expo-image-picker";
 
-import { Moondream } from "moondream-rn";
+import { Moondream } from "moondream-react-native";
 
 import { useEffect, useState } from "react";
 

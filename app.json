@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "moondream-chat",
-    "slug": "moondream-chat",
+    "name": "moondream-mobile",
+    "slug": "moondream-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -14,14 +14,14 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.moondreamchat"
+      "bundleIdentifier": "com.anonymous.moondreammobile"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.moondreamchat",
+      "package": "com.anonymous.moondreammobile",
       "permissions": []
     },
     "web": {
