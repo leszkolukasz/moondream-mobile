@@ -2,6 +2,8 @@ import { StyleSheet, Button, Image, TextInput, View, Linking, Platform } from "r
 import { InferenceSession, Tensor } from "onnxruntime-react-native";
 import * as FileSystem from "expo-file-system";
 import * as ImagePicker from "expo-image-picker";
+// @ts-ignore
+import * as nj from "numjs";
 
 import { Moondream } from "moondream-react-native";
 
@@ -64,6 +66,7 @@ export default function ModelScreen() {
         loadModel();
     }, []);
 
+
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ["images", "videos"],
@@ -115,7 +118,7 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 40,
-        borderColor: 'gray',
+        borderColor: "gray",
         borderWidth: 1,
         marginBottom: 10,
         paddingHorizontal: 8,
