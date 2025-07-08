@@ -2,8 +2,6 @@ import { StyleSheet, Button, Image, TextInput, View, Linking, Platform } from "r
 import { InferenceSession, Tensor } from "onnxruntime-react-native";
 import * as FileSystem from "expo-file-system";
 import * as ImagePicker from "expo-image-picker";
-// import * as tf from "@tensorflow/tfjs";
-// import "@tensorflow/tfjs-react-native";
 
 import { Moondream } from "moondream-rn";
 
@@ -79,34 +77,22 @@ export default function ModelScreen() {
         }
     };
 
-    // console.log(tf.tensor1d([1, 2, 3]).toString());
 
     const execute = async () => {
-        // const tensorA = new Tensor('float32', Float32Array.from([parseFloat(xValue)]), [1]);
-        // const tensorB = new Tensor('float32', Float32Array.from([parseFloat(yValue)]), [1]);
-
-        const input_embeds = new Tensor('float32', Float32Array.from(Array(5*1024).fill(0.5)), [1, 5, 1024]);
-        console.log("Created input_embeds tensor");
-        const kv_cache =  new Tensor('float32', Float32Array.from(Array(24* 2* 1* 16* 5* 64).fill(0.5)), [24, 2, 1, 16, 5, 64]);
-        console.log("Created kv_cache tensor");
-        
-        console.log(input_embeds.type, kv_cache.type);
-        const feed = {
-            input_embeds: input_embeds,
-            kv_cache: kv_cache,
-        };
-
-        console.log("After creating tensors");
-
         if (!moondream) {
             console.error("Session is not initialized");
             return;
         }
 
+        if (!imageURI) {
+            console.error("No image selected");
+            return;
+        }
+
         try {
             console.log("Running model");
-            // const output = await session!.run(feed);
-            // console.log("Output", output["new_kv_cache"].dims);
+            const res = await moondream.encodeImage(imageURI);
+            console.log(res);
         } catch (error) {
             console.error("Error running model", error);
         }
