@@ -13,17 +13,17 @@ const downloadModel = async () => {
     const outDir = FileSystem.documentDirectory + "models/";
 
     const files = [
-        { url: "https://huggingface.co/whistleroosh/moondream-rn/resolve/main/config.json?download=true", name: "config.json" },
-        { url: "https://huggingface.co/whistleroosh/moondream-rn/resolve/main/coord_decoder.onnx?download=true", name: "coord_decoder.onnx" },
-        { url: "https://huggingface.co/whistleroosh/moondream-rn/resolve/main/coord_encoder.onnx?download=true", name: "coord_encoder.onnx" },
-        { url: "https://huggingface.co/whistleroosh/moondream-rn/resolve/main/initial_kv_cache.json?download=true", name: "initial_kv_cache.json" },
-        { url: "https://huggingface.co/whistleroosh/moondream-rn/resolve/main/size_decoder.onnx?download=true", name: "size_decoder.onnx" },
-        { url: "https://huggingface.co/whistleroosh/moondream-rn/resolve/main/size_encoder.onnx?download=true", name: "size_encoder.onnx" },
-        { url: "https://huggingface.co/whistleroosh/moondream-rn/resolve/main/text_decoder.onnx?download=true", name: "text_decoder.onnx" },
-        { url: "https://huggingface.co/whistleroosh/moondream-rn/resolve/main/text_encoder.onnx?download=true", name: "text_encoder.onnx" },
-        { url: "https://huggingface.co/whistleroosh/moondream-rn/resolve/main/tokenizer.json?download=true", name: "tokenizer.json" },
-        { url: "https://huggingface.co/whistleroosh/moondream-rn/resolve/main/vision_encoder.onnx?download=true", name: "vision_encoder.onnx" },
-        { url: "https://huggingface.co/whistleroosh/moondream-rn/resolve/main/vision_projection.onnx?download=true", name: "vision_projection.onnx" }
+        { url: "https://huggingface.co/whistleroosh/moondream-0.5B/resolve/main/config.json?download=true", name: "config.json" },
+        { url: "https://huggingface.co/whistleroosh/moondream-0.5B/resolve/main/coord_decoder.onnx?download=true", name: "coord_decoder.onnx" },
+        { url: "https://huggingface.co/whistleroosh/moondream-0.5B/resolve/main/coord_encoder.onnx?download=true", name: "coord_encoder.onnx" },
+        { url: "https://huggingface.co/whistleroosh/moondream-0.5B/resolve/main/initial_kv_cache.json?download=true", name: "initial_kv_cache.json" },
+        { url: "https://huggingface.co/whistleroosh/moondream-0.5B/resolve/main/size_decoder.onnx?download=true", name: "size_decoder.onnx" },
+        { url: "https://huggingface.co/whistleroosh/moondream-0.5B/resolve/main/size_encoder.onnx?download=true", name: "size_encoder.onnx" },
+        { url: "https://huggingface.co/whistleroosh/moondream-0.5B/resolve/main/text_decoder.onnx?download=true", name: "text_decoder.onnx" },
+        { url: "https://huggingface.co/whistleroosh/moondream-0.5B/resolve/main/text_encoder.onnx?download=true", name: "text_encoder.onnx" },
+        { url: "https://huggingface.co/whistleroosh/moondream-0.5B/resolve/main/tokenizer.json?download=true", name: "tokenizer.json" },
+        { url: "https://huggingface.co/whistleroosh/moondream-0.5B/resolve/main/vision_encoder.onnx?download=true", name: "vision_encoder.onnx" },
+        { url: "https://huggingface.co/whistleroosh/moondream-0.5B/resolve/main/vision_projection.onnx?download=true", name: "vision_projection.onnx" }
     ];
 
     console.log("Downloading model files...");
@@ -94,7 +94,7 @@ export default function ModelScreen() {
 
         try {
             console.log("Running model");
-            const res = await moondream.encodeImage(imageURI);
+            const res = await moondream.caption(imageURI, "short");
             console.log(res);
         } catch (error) {
             console.error("Error running model", error);
